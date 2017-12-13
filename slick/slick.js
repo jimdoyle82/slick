@@ -88,7 +88,13 @@
                 vertical: false,
                 verticalSwiping: false,
                 waitForAnimate: true,
-                zIndex: 1000
+                zIndex: 1000,
+                bounds: {
+                    xStart: null,
+                    xEnd: null,
+                    yStart: null,
+                    yEnd: null,
+                }
             };
 
             _.initials = {
@@ -289,12 +295,13 @@
                     duration: _.options.speed,
                     easing: _.options.easing,
                     step: function(now) {
-                        now = Math.ceil(now);
                         if (_.options.vertical === false) {
+                            now = _.getTranslateXWithinBounds( Math.ceil(now) );
                             animProps[_.animType] = 'translate(' +
                                 now + 'px, 0px)';
                             _.$slideTrack.css(animProps);
                         } else {
+                            now = _.getTranslateYWithinBounds( Math.ceil(now) );
                             animProps[_.animType] = 'translate(0px,' +
                                 now + 'px)';
                             _.$slideTrack.css(animProps);
@@ -310,11 +317,12 @@
             } else {
 
                 _.applyTransition();
-                targetLeft = Math.ceil(targetLeft);
-
+                
                 if (_.options.vertical === false) {
+                    targetLeft = _.getTranslateXWithinBounds( Math.ceil(targetLeft) );
                     animProps[_.animType] = 'translate3d(' + targetLeft + 'px, 0px, 0px)';
                 } else {
+                    targetLeft = _.getTranslateYWithinBounds( Math.ceil(targetLeft) );
                     animProps[_.animType] = 'translate3d(0px,' + targetLeft + 'px, 0px)';
                 }
                 _.$slideTrack.css(animProps);
@@ -2004,8 +2012,8 @@
         if (_.options.rtl === true) {
             position = -position;
         }
-        x = _.positionProp == 'left' ? Math.ceil(position) + 'px' : '0px';
-        y = _.positionProp == 'top' ? Math.ceil(position) + 'px' : '0px';
+        x = _.positionProp == 'left' ? _.getTranslateXWithinBounds(Math.ceil(position)) + 'px' : '0px';
+        y = _.positionProp == 'top' ? _.getTranslateYWithinBounds(Math.ceil(position)) + 'px' : '0px';
 
         positionProps[_.positionProp] = position;
 
@@ -2990,6 +2998,31 @@
         }
 
     };
+
+
+    /**
+     * Sets the boundaries of translateX values, if supplied in options
+     * @param {number} x 
+     */
+    Slick.prototype.getTranslateXWithinBounds = function(x) {
+        if(!_.options.bounds || _.options.bounds.x === null || typeof _.options.bounds.x !== "number") return x;
+
+        if(x >= _.options.bounds.x) return _.options.bounds.x;
+
+        return x;
+    }
+
+    /**
+     * Sets the boundaries of translateY values, if supplied in options
+     * @param {number} y
+     */
+    Slick.prototype.getTranslateYWithinBounds = function(y) {
+        if(!_.options.bounds || _.options.bounds.y === null || typeof _.options.bounds.y !== "number") return x;
+
+        if(y >= _.options.bounds.y) return _.options.bounds.y;
+        
+        return y;
+    }
 
     $.fn.slick = function() {
         var _ = this,
