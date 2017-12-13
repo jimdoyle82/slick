@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>
+            Sample with variableWidth = true & infinite = false
+        </title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <link href="/slick/slick.css" rel="stylesheet" >
+
+        <style>
+            .slider {
+                width: auto;
+                margin: 30px 50px 50px;
+            }
+
+            .slick-slide {
+                background: #3a8999;
+                color: white;
+                padding: 40px 0;
+                font-size: 30px;
+                font-family: "Arial", "Helvetica";
+                text-align: center;
+                width: 200px;
+            }
+
+            .slick-prev:before, 
+            .slick-next:before {
+                color: black;    
+            }
+
+            .slick-dots {
+                bottom: -30px;
+            }
+
+            .slick-slide:nth-child(odd) {
+                background: #e84a69;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            .wrap {
+                max-width: 600px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <!--              ^
+            Use the FORK, Luke.
+            create your own new fiddle test case.
+        -->
+
+        <div class="wrap">
+            <section class="slider">
+                <div>slide1</div>
+                <div>slide2</div>
+                <div>slide3</div>
+                <div>slide4</div>
+                <div>slide5</div>
+                <div>slide6</div>
+                <div>slide7</div>
+            </section>
+        </div>
+
+        <script src="/samples/jquery-3.2.1.min.js"></script>
+        <script src="/slick/slick.js"></script>
+
+        <script>
+
+            $(".slider").slick({
+                dots: false,
+                variableWidth: true,
+                infinite: false,
+                slidesToShow: 4,
+                slidesToScroll: 1
+            });
+
+        </script>
+    </body>
+
+</html>

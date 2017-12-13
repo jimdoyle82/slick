@@ -2495,9 +2495,13 @@
         _.currentLeft = _.swipeLeft === null ? slideLeft : _.swipeLeft;
 
         if (_.options.infinite === false && _.options.centerMode === false && (index < 0 || index > _.getDotCount() * _.options.slidesToScroll)) {
+
+            // console.log("condition check", index, _.getDotCount() * _.options.slidesToScroll, _.getDotCount(), _.options.slidesToScroll);
+
             if (_.options.fade === false) {
                 targetSlide = _.currentSlide;
                 if (dontAnimate !== true && _.slideCount > _.options.slidesToShow) {
+                    console.log( "_.options.slidesToShow", _.options.slidesToShow );
                     _.animateSlide(slideLeft, function() {
                         _.postSlide(targetSlide);
                     });
@@ -2546,6 +2550,8 @@
 
         oldSlide = _.currentSlide;
         _.currentSlide = animSlide;
+
+        // console.log("_.currentSlide", _.currentSlide);
 
         _.setSlideClasses(_.currentSlide);
 
