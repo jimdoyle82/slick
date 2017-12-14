@@ -2015,7 +2015,7 @@
         x = _.positionProp == 'left' ? _.getTranslateXWithinBounds(Math.ceil(position)) + 'px' : '0px';
         y = _.positionProp == 'top' ? _.getTranslateYWithinBounds(Math.ceil(position)) + 'px' : '0px';
 
-        positionProps[_.positionProp] = position;
+        positionProps[_.positionProp] = _.positionProp == 'left' ? _.getTranslateXWithinBounds(position) : _.getTranslateYWithinBounds(position);
 
         if (_.transformsEnabled === false) {
             _.$slideTrack.css(positionProps);
@@ -3005,9 +3005,12 @@
      * @param {number} x 
      */
     Slick.prototype.getTranslateXWithinBounds = function(x) {
-        if(!_.options.bounds || _.options.bounds.x === null || typeof _.options.bounds.x !== "number") return x;
+        var _ = this;
 
-        if(x >= _.options.bounds.x) return _.options.bounds.x;
+        if(!_.options.bounds || _.options.bounds.xStart === null || typeof _.options.bounds.xStart !== "number") return x;
+        console.log("SLICK getTranslateXWithinBounds");
+
+        if(x >= _.options.bounds.xStart) return _.options.bounds.xStart;
 
         return x;
     }
@@ -3017,9 +3020,10 @@
      * @param {number} y
      */
     Slick.prototype.getTranslateYWithinBounds = function(y) {
-        if(!_.options.bounds || _.options.bounds.y === null || typeof _.options.bounds.y !== "number") return x;
+        var _ = this;
+        if(!_.options.bounds || _.options.bounds.yStart === null || typeof _.options.bounds.yStart !== "number") return y;
 
-        if(y >= _.options.bounds.y) return _.options.bounds.y;
+        if(y >= _.options.bounds.yStart) return _.options.bounds.yStart;
         
         return y;
     }
