@@ -3008,7 +3008,7 @@
         var _ = this;
 
         if(!_.options.bounds || _.options.bounds.xStart === null || typeof _.options.bounds.xStart !== "number") return x;
-        console.log("SLICK getTranslateXWithinBounds");
+        //console.log("SLICK getTranslateXWithinBounds");
 
         if(x >= _.options.bounds.xStart) return _.options.bounds.xStart;
 
